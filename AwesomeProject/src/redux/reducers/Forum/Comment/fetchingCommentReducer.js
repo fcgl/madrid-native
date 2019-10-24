@@ -3,7 +3,7 @@ import {
     FETCHING_POST_COMMENTS_FAILURE,
     FETCHING_POST_COMMENTS_REQUEST,
     FETCHING_POST_COMMENTS_SUCCESS
-} from "../../../actions/actionTypes";
+} from "../../../actions/Types/actionTypes";
 
 const initialState = {
     comments: [],

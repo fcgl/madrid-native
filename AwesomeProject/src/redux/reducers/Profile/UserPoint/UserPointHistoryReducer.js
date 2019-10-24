@@ -2,7 +2,7 @@ import {
     FETCH_USER_POINT_HISTORY_FAILURE,
     FETCH_USER_POINT_HISTORY_REQUEST,
     FETCH_USER_POINT_HISTORY_SUCCESS,
-} from "../../../actions/actionTypes";
+} from "../../../actions/Types/actionTypes";
 
 const initialState = {
     isLoading: false,

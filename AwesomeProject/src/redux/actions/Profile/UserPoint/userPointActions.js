@@ -5,7 +5,7 @@ import {
     FETCH_USER_POINT_HISTORY_REQUEST,
     FETCH_USER_POINT_HISTORY_SUCCESS,
     FETCH_USER_POINT_HISTORY_FAILURE
-} from "../../actionTypes";
+} from "../../Types/actionTypes";
 
 export const fetchingUserPointsDetailsRequest = () => ({
     type: FETCH_USER_POINTS_DETAILS_REQUEST
