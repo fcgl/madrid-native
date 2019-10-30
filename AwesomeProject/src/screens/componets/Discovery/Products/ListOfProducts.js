@@ -24,7 +24,7 @@ class ListOfProducts extends Component {
                             price={product.retail_price}
                             category={product.categories[0]}
                             name={product.name}
-                            distance={"0.7"}
+                            extra={"VIEW ALL"}
                         />
                     ))
 

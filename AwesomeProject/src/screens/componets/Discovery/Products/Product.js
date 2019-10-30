@@ -27,7 +27,7 @@ class Product extends Component {
                             </View>
                             <View style={{flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
                                 <Text style={{fontWeight: '600', fontFamily: 'Avenir', fontSize: 12, color: '#71AFCF'}}>
-                                    {this.props.distance} KM away
+                                    {this.props.extra}
                                 </Text>
                             </View>
                         </View>
