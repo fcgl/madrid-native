@@ -6,7 +6,8 @@ import addComment from './Forum/Comment/makeCommentReducer'
 import fetchingCommentReducer from './Forum/Comment/fetchingCommentReducer'
 import userPointReducer from "./Profile/UserPoint/UserDetailsReducer";
 import userPointHistoryReducer from "./Profile/UserPoint/UserPointHistoryReducer";
-import userTrophies from "./Profile/UserTrophy/UserTrophyReducer"
+import userTrophies from "./Profile/UserTrophy/UserTrophyReducer";
+import productsReducer from "./Discovery/productReducer";
 
 export default combineReducers({
     todos,
@@ -16,5 +17,6 @@ export default combineReducers({
     fetchingCommentReducer: fetchingCommentReducer,
     userPointReducer: userPointReducer,
     userPointHistoryReducer: userPointHistoryReducer,
-    userTrophies: userTrophies
+    userTrophies: userTrophies,
+    productsReducer: productsReducer
 })

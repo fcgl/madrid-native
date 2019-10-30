@@ -3,7 +3,7 @@ import {
     FETCHING_POSTS_SUCCESS,
     FETCHING_POSTS_FAILURE,
     APPEND_NEW_POST
-} from "../../actions/actionTypes";
+} from "../../actions/Types/actionTypes";
 
 const initialState = {
     featured: {

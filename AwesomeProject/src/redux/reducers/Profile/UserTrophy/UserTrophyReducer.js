@@ -2,7 +2,7 @@ import {
     FETCH_USER_TROPHIES_FAILURE,
     FETCH_USER_TROPHIES_SUCCESS,
     FETCH_USER_TROPHIES_REQUEST,
-} from "../../../actions/actionTypes";
+} from "../../../actions/Types/actionTypes";
 
 const initialState = {
     isLoading: false,

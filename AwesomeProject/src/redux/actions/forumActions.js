@@ -12,7 +12,7 @@ import {
     APPEND_NEW_COMMENT,
     FETCHING_POST_COMMENTS_REQUEST,
     FETCHING_POST_COMMENTS_SUCCESS, FETCHING_POST_COMMENTS_FAILURE, UPDATE_NEW_COMMENT
-} from "./actionTypes";
+} from "./Types/actionTypes";
 
 export const fetchingFeaturedPostsRequest = (postType) => ({
    type: FETCHING_POSTS_REQUEST,

@@ -4,7 +4,7 @@
  * @type {number}
  */
 
-import {ADD_TODO, TOGGLE_TODO} from "./actionTypes";
+import {ADD_TODO, TOGGLE_TODO} from "./Types/actionTypes";
 
 let nextId = 0;
 export const addTodo = (text) => ({

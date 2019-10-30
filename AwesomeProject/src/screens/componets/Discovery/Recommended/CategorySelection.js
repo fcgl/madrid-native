@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import ShoppingListComponent from "../../Profile/ShoppingLists/ShoppingListComponent";
 import ListOfSavedItems from "../../Profile/SavedItems/ListOfSavedItems";
-
+import ListOfProducts from "../Products/ListOfProducts";
+import {RECOMMENDED_PRODUCTS} from "../../../../redux/actions/Types/productTypes";
 class CategorySelection extends Component {
 
     state = {
@@ -54,7 +55,8 @@ class CategorySelection extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <ListOfSavedItems/>
+                {/*<ListOfSavedItems/>*/}
+                <ListOfProducts productType={RECOMMENDED_PRODUCTS}/>
             </View>
         );
     }

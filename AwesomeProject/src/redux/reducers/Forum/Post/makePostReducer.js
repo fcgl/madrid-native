@@ -2,7 +2,7 @@ import {
     ADD_POST_FAILURE,
     ADD_POST_SUCCESS,
     ADD_POST_REQUEST
-} from "../../../actions/actionTypes";
+} from "../../../actions/Types/actionTypes";
 
 const initialState = {
     isLoading: false,

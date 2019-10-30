@@ -1,6 +1,6 @@
 import {
     ADD_COMMENT_REQUEST, ADD_COMMENT_FAILURE, ADD_COMMENT_SUCCESS, UPDATE_NEW_COMMENT
-} from "../../../actions/actionTypes";
+} from "../../../actions/Types/actionTypes";
 
 const initialState = {
     isLoading: false,
