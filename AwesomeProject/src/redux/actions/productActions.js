@@ -57,7 +57,6 @@ export const fetchProducts = (productType) => {
             });
             if (response.ok) {
                 const jsonResponse = await response.json();
-                console.log(jsonResponse);
                 dispatch(fetchingProductsSuccess(productType, jsonResponse))
             } else {
                 const errorResponse = await response.text();

@@ -15,8 +15,6 @@ class ListOfProducts extends Component {
     render() {
         return (
             <View>
-                {console.log("redux state")}
-                {console.log(this.props.reduxState)}
                 {
                     this.props.reduxState[this.props.productType].products.map((product) => (
                         <Product
