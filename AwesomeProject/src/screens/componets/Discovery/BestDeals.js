@@ -3,6 +3,8 @@ import {Animated, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, 
 import DiscoveryHeader from "./DiscoveryHeader";
 import Category from "../Explore/Category";
 import ListOfSavedItems from "../Profile/SavedItems/ListOfSavedItems";
+import ListOfProducts from "./Products/ListOfProducts";
+import {RECOMMENDED_PRODUCTS} from "../../../redux/actions/Types/productTypes";
 
 class BestDeals extends Component {
     render() {
@@ -49,7 +51,7 @@ class BestDeals extends Component {
                                     ALL OFFERS
                                 </Text>
                             </View>
-                            <ListOfSavedItems/>
+                            <ListOfProducts productType={RECOMMENDED_PRODUCTS}/>
 
                         </View>
                     </ScrollView>
