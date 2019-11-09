@@ -23,7 +23,7 @@ class SearchProducts extends Component {
                         this.props.reduxState.products.map((product) => (
                             <Product
                                 key={product._id + '-' + product.name}
-                                price={product.retail_price}
+                                price={product.retail_price.toFixed(2)}
                                 category={product.categories[0]}
                                 name={product.name}
                                 extra={"VIEW ALL"}
