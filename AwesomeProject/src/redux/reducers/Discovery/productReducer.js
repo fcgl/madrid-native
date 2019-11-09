@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     recommended: {
-        isLoading: true,
+        isLoading: false,
         hasError: false,
         errorMessage: '',
         products: [],

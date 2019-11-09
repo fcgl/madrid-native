@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, AsyncStorage, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, AsyncStorage, TouchableOpacity, StatusBar} from 'react-native';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 // import SignUp from './src/SignUp'
 import AirbnbApp from "./src/AirbnbApp";
 import store from "./src/redux/store"
-
+import DropdownAlert from 'react-native-dropdownalert';
+import {AlertHelper} from './pages/AlertHelper'
 const initialState = {
     counter: 0
 };
@@ -28,6 +29,11 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <AirbnbApp/>
+                <DropdownAlert
+                    defaultContainer={{ padding: 8, paddingTop: StatusBar.currentHeight, flexDirection: 'row' }}
+                    ref={ref => AlertHelper.setDropDown(ref)}
+                    onClose={() => AlertHelper.invokeOnClose()}
+                />
             </Provider>
         )
     }
