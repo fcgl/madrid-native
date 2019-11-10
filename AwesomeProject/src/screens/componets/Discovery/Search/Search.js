@@ -50,7 +50,11 @@ class Search extends Component {
     toggleSearch = () => {
 
         if (this.props.reduxState.isLoading) {
-            return (<ActivityIndicator/>)
+            return (
+                <View style={{flex: 10, justifyContent: 'center', alignItems: 'center', alignContent: 'center'}}>
+                    <ActivityIndicator/>
+                </View>
+                )
         }
 
         if (this.props.reduxState.searchResultsObtained) {
