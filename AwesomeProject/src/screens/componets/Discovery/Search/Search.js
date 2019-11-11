@@ -61,6 +61,7 @@ class Search extends Component {
             return (
                 <SearchProducts
                     reduxState={this.props.reduxState}
+                    resetSearch={this.props.resetSearch}
                 />
             )
         }
