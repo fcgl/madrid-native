@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Feather from "react-native-vector-icons/Feather";
+import {connect} from "react-redux";
+import {fetchRecentSearchHistory} from "../../../../redux/actions/searchActions";
 
 class DefaultSearchScreen extends Component {
 
     _startSearch = (name) => {
         this.props.searchProducts(name);
     };
+
+    componentDidMount() {
+        this.props.fetchRecentSearchHistory();
+    }
 
     render() {
         return (
@@ -34,13 +40,14 @@ class DefaultSearchScreen extends Component {
                 <View style={{paddingTop: 20, paddingHorizontal: 15}}>
                     <Text style={{fontSize: 12, color: '#1F1F1F', fontWeight: '600'}}>
                         RECENT SEARCHES
+                        {this.props.reduxState.errorMessage}
                     </Text>
                     {
-                        this.props.recentSearchHistory.map((searchHistory) => (
-                            <TouchableOpacity style={{paddingLeft: 10}} key={searchHistory.id} onPress={()=>this._startSearch(searchHistory.name)}>
+                        this.props.reduxState.searchHistory.map((searchHistory) => (
+                            <TouchableOpacity style={{paddingLeft: 10}} key={searchHistory.id} onPress={()=>this._startSearch(searchHistory.query)}>
                                 <View style={{borderColor: '#EEEEEE', borderTopWidth: 1, borderBottomWidth: 1, paddingVertical: 10, flexDirection: 'row'}}>
                                     <Text style={{color: '#6B6B6B'}}>
-                                        {searchHistory.name}
+                                        {searchHistory.query}
                                     </Text>
                                     <View style={{flex: 1, justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end'}}>
                                         <Feather
@@ -57,7 +64,13 @@ class DefaultSearchScreen extends Component {
     }
 }
 
-export default DefaultSearchScreen;
+const mapStateToProps = state => {
+    return {
+        reduxState: state.searchHistory
+    }
+};
+
+export default connect(mapStateToProps, {fetchRecentSearchHistory})(DefaultSearchScreen);
 
 const styles = StyleSheet.create({
     container: {
