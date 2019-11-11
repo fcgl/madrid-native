@@ -27,6 +27,7 @@ import Top from "./screens/componets/Forum/Top";
 import New from "./screens/componets/Forum/New";
 import Post from "./screens/componets/Forum/Post/Post";
 import CreatePost from "./screens/componets/Forum/Post/CreatePost";
+import Search from "./screens/componets/Discovery/Search/Search";
 
 
 const ProfileStack = createStackNavigator({
@@ -51,7 +52,8 @@ const ProfileStack = createStackNavigator({
 const DiscoveryStack = createStackNavigator({
     Discovery: {screen: Discovery},
     BestDeals: {screen: BestDeals},
-    Nearby: {screen: Nearby}
+    Nearby: {screen: Nearby},
+    Search: {screen: Search}
     },     {
     headerMode: 'none',
     navigationOptions: {

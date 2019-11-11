@@ -76,10 +76,11 @@ class AllPosts extends Component {
         return(
             <SafeAreaView style={{flex: 1, backgroundColor: '#4395BF'}}>
                 <View style={{flex: 1}}>
+                    <Text>{this.props.reduxState.errorMessage}</Text>
                     <ScrollView style={{backgroundColor: '#F9F9F9'}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: {contentOffset: {y:this.scrollY}}}])}>
                         <DiscoveryHeader headerNav={[{nav: 'Forum', title: 'Featured'}, {nav: 'Top', title: 'Top'}, {nav: 'New', title: 'New'}]} headerName={'Forum'} navigation={this.props.navigation}/>
                         <Text>
-                            {this.state.errorMessage}
+                            {this.props.reduxState[this.props.postType].errorMessage[0]}
                         </Text>
                         <View style={{alignItems: 'center'}}>
                             {console.log(this.props.reduxState)}

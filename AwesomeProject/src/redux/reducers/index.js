@@ -8,6 +8,7 @@ import userPointReducer from "./Profile/UserPoint/UserDetailsReducer";
 import userPointHistoryReducer from "./Profile/UserPoint/UserPointHistoryReducer";
 import userTrophies from "./Profile/UserTrophy/UserTrophyReducer";
 import productsReducer from "./Discovery/productReducer";
+import searchProduct from "./Discovery/searchReducer";
 
 export default combineReducers({
     todos,
@@ -18,5 +19,6 @@ export default combineReducers({
     userPointReducer: userPointReducer,
     userPointHistoryReducer: userPointHistoryReducer,
     userTrophies: userTrophies,
-    productsReducer: productsReducer
+    productsReducer: productsReducer,
+    searchProduct: searchProduct
 })

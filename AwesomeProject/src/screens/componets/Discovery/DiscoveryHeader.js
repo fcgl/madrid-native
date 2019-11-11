@@ -10,12 +10,26 @@ class DiscoveryHeader extends Component {
         };
 
         const getIcon = () => {
-          if (this.props.iconName !== null) {
-              return(
-                  <View style={{position: 'absolute', top: 0, left: null, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                      <Fontisto name={this.props.iconName} size={20} style={{color: '#D9EAF2'}}/>
-                  </View>
-              )
+          if (this.props.iconName !== undefined) {
+              if (this.props.iconNav !== undefined) {
+                  return(
+
+                          <View style={{position: 'absolute', top: 0, left: null, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+                              <TouchableOpacity
+                                  onPress={() => { this.props.navigation.navigate(this.props.iconNav)}}
+                              >
+                                <Fontisto name={this.props.iconName} size={20} style={{color: '#D9EAF2'}}/>
+                              </TouchableOpacity>
+
+                          </View>
+                  )
+              } else {
+                  return(
+                      <View style={{position: 'absolute', top: 0, left: null, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+                          <Fontisto name={this.props.iconName} size={20} style={{color: '#D9EAF2'}}/>
+                      </View>
+                  )
+              }
           }
         };
         return (

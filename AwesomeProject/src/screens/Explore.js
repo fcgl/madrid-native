@@ -13,7 +13,6 @@ import Category from './componets/Explore/Category'
 import Home from './componets/Explore/Home'
 import Todo from './componets/Explore/Todo'
 import Tag from './componets/Explore/Tag'
-import Search from './componets/Explore/Search'
 import {colors} from "../theme";
 import AddTodo from './componets/Todo/AddTodo';
 

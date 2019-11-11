@@ -37,7 +37,11 @@ class Discovery extends Component {
             <SafeAreaView style={{flex: 1, backgroundColor: '#4395BF'}}>
                 <View style={{flex: 1}}>
                     <ScrollView style={{backgroundColor: '#F9F9F9'}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: {contentOffset: {y:this.scrollY}}}])}>
-                        <DiscoveryHeader headerNav={[{nav: 'Discovery', title: 'Recommended'}, {nav: 'BestDeals', title: 'Deals'}, {nav: 'Nearby', title: 'Nearby'}]} headerName={'Discovery'} iconName={'search'} navigation={this.props.navigation}/>
+                        <DiscoveryHeader headerNav={
+                            [{nav: 'Discovery', title: 'Recommended'},
+                                {nav: 'BestDeals', title: 'Deals'},
+                                {nav: 'Nearby', title: 'Nearby'}
+                                ]} headerName={'Discovery'} iconName={'search'} navigation={this.props.navigation} iconNav={'Search'}/>
                         <CategorySelection/>
                     </ScrollView>
                 </View>
