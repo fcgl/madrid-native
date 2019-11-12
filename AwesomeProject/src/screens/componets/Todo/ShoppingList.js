@@ -84,11 +84,11 @@ const test = (todos, toggleTodo) => {
   }
 };
 
-const TodoList = ({todos, toggleTodo}) => {
+const ShoppingList = ({todos, toggleTodo}) => {
     return test(todos, toggleTodo);
 };
 
-export default TodoList;
+export default ShoppingList;
 
 const styles = StyleSheet.create({
     container: {

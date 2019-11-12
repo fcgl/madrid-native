@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import {connect} from 'react-redux'
 import {addTodo} from '../../../redux/actions'
 
-class AddTodo extends Component {
+class AddList extends Component {
 
     state = {
         text: ''
@@ -42,7 +42,7 @@ class AddTodo extends Component {
     }
 }
 
-export default connect()(AddTodo);
+export default connect()(AddList);
 
 const styles = StyleSheet.create({
     container: {

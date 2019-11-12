@@ -40,7 +40,6 @@ class DefaultSearchScreen extends Component {
                 <View style={{paddingTop: 20, paddingHorizontal: 15}}>
                     <Text style={{fontSize: 12, color: '#1F1F1F', fontWeight: '600'}}>
                         RECENT SEARCHES
-                        {this.props.reduxState.errorMessage}
                     </Text>
                     {
                         this.props.reduxState.searchHistory.map((searchHistory) => (
