@@ -17,7 +17,6 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import Foundation from "react-native-vector-icons/Foundation";
 import Category from "./componets/Explore/Category";
 import Todo from "./componets/Explore/Todo";
-import AddTodo from "./componets/Todo/AddList";
 import ProfileHeader from "./componets/Profile/ProfileHeader"
 import RewardSummaryTabs from "./componets/Profile/RewardSummary/RewardSummaryTabs"
 import PointOverview from "./componets/Profile/RewardSummary/Points/PointOverview"

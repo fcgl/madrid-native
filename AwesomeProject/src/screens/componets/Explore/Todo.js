@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import AddTodo from '../Todo/AddList';
 import VisibleTodos from '../Todo/VisibleTodos';
 
 class Todo extends Component {

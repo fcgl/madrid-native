@@ -14,7 +14,7 @@ import Home from './componets/Explore/Home'
 import Todo from './componets/Explore/Todo'
 import Tag from './componets/Explore/Tag'
 import {colors} from "../theme";
-import AddList from './componets/Todo/AddList';
+import AddItem from './componets/Todo/AddItem';
 
 
 const {height, width} = Dimensions.get('window');
@@ -132,10 +132,8 @@ class Explore extends Component {
                             <Todo/>
 
                         </View>
-
-
                     </ScrollView>
-                    <AddList/>
+                    <AddItem/>
                 </View>
             </SafeAreaView>
         );
