@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import VisibleTodos from '../Todo/VisibleTodos';
+import ShoppingList from '../Todo/ShoppingList';
 
 class Todo extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <VisibleTodos/>
+                <ShoppingList/>
             </View>
         );
     }

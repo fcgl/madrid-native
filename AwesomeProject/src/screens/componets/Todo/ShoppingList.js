@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
+import {toggleTodo,fetchActiveShoppingList} from "../../../redux/actions/shoppingListActions";
+import {connect} from "react-redux";
 
 //TODO: Might be better to keep track of this on the state
 const getCheckedOffCount = (todoList) => {
@@ -45,21 +47,21 @@ const emptyList = () => {
     )
 };
 
-const notEmptyList = (todos, toggleTodo) => {
+const notEmptyList = (items, toggleTodo) => {
     return (
         <View>
-            {listHeader(getCheckedOffCount(todos), todos.length)}
+            {listHeader(getCheckedOffCount(items), items.length)}
             <View style={{backgroundColor: 'white'}}>
-                {todos.map(todo=>
-                    <TouchableOpacity key={"box-" + todo.id} onPress={()=>toggleTodo(todo.id)}>
-                        <View key={"view-1" + todo.id}  style={{padding: 10, flex: 1, flexDirection: 'row', backgroundColor: todo.completed ? '#F9F9F9' : 'white' }}>
+                {items.map(item=>
+                    <TouchableOpacity key={"box-" + item.id} onPress={()=>toggleTodo(item.id)}>
+                        <View key={"view-1" + item.id}  style={{padding: 10, flex: 1, flexDirection: 'row', backgroundColor: item.completed ? '#F9F9F9' : 'white' }}>
                             <View style={{flex: 1}}>
-                                <Icon name={todo.completed ? "md-checkmark": 'ios-square-outline' }
-                                      style={[todo.completed ? styles.checked : styles.unChecked]}
+                                <Icon name={item.completed ? "md-checkmark": 'ios-square-outline' }
+                                      style={[item.completed ? styles.checked : styles.unChecked]}
                                 />
                             </View>
                             <View style={{flex: 10}}>
-                                <Text style={{fontSize: 14, textDecorationLine: todo.completed? 'line-through': 'none'}}>{todo.text}</Text>
+                                <Text style={{fontSize: 14, textDecorationLine: item.completed? 'line-through': 'none'}}>{item.productName}</Text>
                             </View>
                             <View style={{flex: 2}}>
                                 {/*TODO: NEED TO HAVE AN API REQUEST THAT GETS THE PRICES!!!*/}
@@ -75,20 +77,29 @@ const notEmptyList = (todos, toggleTodo) => {
 };
 
 
+class ShoppingList extends Component {
 
-const test = (todos, toggleTodo) => {
-  if (todos.length === 0) {
-      return emptyList()
-  } else {
-      return notEmptyList(todos, toggleTodo)
-  }
+    componentDidMount() {
+        this.props.fetchActiveShoppingList()
+    }
+
+    render() {
+        if (this.props.reduxState2.shoppingProducts.length === 0) {
+            return emptyList()
+        } else {
+            return notEmptyList(this.props.reduxState2.shoppingProducts, this.props.toggleTodo)
+        }
+    }
+}
+const mapStateToProps = state => {
+    return {
+        reduxState: state.todos,
+        reduxState2: state.activeShoppingList
+    }
 };
 
-const ShoppingList = ({todos, toggleTodo}) => {
-    return test(todos, toggleTodo);
-};
-
-export default ShoppingList;
+//Connects the props to the TodoList
+export default connect(mapStateToProps, {toggleTodo, fetchActiveShoppingList})(ShoppingList);
 
 const styles = StyleSheet.create({
     container: {

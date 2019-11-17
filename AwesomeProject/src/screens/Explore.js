@@ -129,6 +129,7 @@ class Explore extends Component {
                                     </View>
                                     </ImageBackground>
                             </View>
+                            {/*This is what displays the shopping list*/}
                             <Todo/>
 
                         </View>
