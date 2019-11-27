@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import {toggleTodo,fetchActiveShoppingList} from "../../../redux/actions/shoppingListActions";
@@ -47,13 +47,14 @@ const emptyList = () => {
     )
 };
 
-const notEmptyList = (items, toggleTodo) => {
+const notEmptyList = (items, toggleTodo, shoppingListId) => {
     return (
-        <View>
+        <View style={{flex: 1}}>
             {listHeader(getCheckedOffCount(items), items.length)}
-            <View style={{backgroundColor: 'white'}}>
+            <View style={{flex: 10}}>
+            <ScrollView style={{backgroundColor: 'white'}}>
                 {items.map(item=>
-                    <TouchableOpacity key={"box-" + item.id} onPress={()=>toggleTodo(item.id)}>
+                    <TouchableOpacity key={"box-" + item.id} onPress={()=>toggleTodo(item.id, shoppingListId)}>
                         <View key={"view-1" + item.id}  style={{padding: 10, flex: 1, flexDirection: 'row', backgroundColor: item.completed ? '#F9F9F9' : 'white' }}>
                             <View style={{flex: 1}}>
                                 <Icon name={item.completed ? "md-checkmark": 'ios-square-outline' }
@@ -71,6 +72,7 @@ const notEmptyList = (items, toggleTodo) => {
                     </TouchableOpacity>
 
                 )}
+            </ScrollView>
             </View>
         </View>
     )
@@ -80,14 +82,14 @@ const notEmptyList = (items, toggleTodo) => {
 class ShoppingList extends Component {
 
     componentDidMount() {
-        this.props.fetchActiveShoppingList()
+        this.props.fetchActiveShoppingList(this.props.shoppingListId)
     }
 
     render() {
-        if (this.props.reduxState2.shoppingProducts.length === 0) {
+        if (this.props.reduxState2[this.props.shoppingListId].shoppingProducts.length === 0) {
             return emptyList()
         } else {
-            return notEmptyList(this.props.reduxState2.shoppingProducts, this.props.toggleTodo)
+            return notEmptyList(this.props.reduxState2[this.props.shoppingListId].shoppingProducts, this.props.toggleTodo, this.props.shoppingListId)
         }
     }
 }

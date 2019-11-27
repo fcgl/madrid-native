@@ -11,21 +11,12 @@ import {
     View,
     FlatList
 } from 'react-native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import Fontisto from "react-native-vector-icons/Fontisto";
-import Foundation from "react-native-vector-icons/Foundation";
-import Category from "./componets/Explore/Category";
-import Todo from "./componets/Explore/Todo";
 import ProfileHeader from "./componets/Profile/ProfileHeader"
 import RewardSummaryTabs from "./componets/Profile/RewardSummary/RewardSummaryTabs"
 import PointOverview from "./componets/Profile/RewardSummary/Points/PointOverview"
 import AllPoints from "./componets/Profile/RewardSummary/Points/AllPoints";
-import PostSummary from "./componets/Forum/components/PostSummary";
-import AllPosts from "./componets/Forum/Post/AllPosts";
 import {connect} from "react-redux";
 import {fetchUserPointHistory} from "../redux/actions/Profile/UserPoint/userPointActions";
-import userPointHistoryReducer from "../redux/reducers/Profile/UserPoint/UserPointHistoryReducer";
 
 class Profile extends Component {
 
