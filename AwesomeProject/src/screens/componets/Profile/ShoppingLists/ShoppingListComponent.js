@@ -1,44 +1,32 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import AllPoints from "../RewardSummary/Points/AllPoints";
+import ShoppingListSummary from "./ShoppingListSummary";
 
 class ShoppingListComponent extends Component {
     render() {
+        const shoppingLists = [{"active": true, "totalPrice": 0.0, "summary": "Coca cola, Banana",
+            "userId": 1, "updatedDate": 1574872900515, "createdDate": 1574872415372,
+            "name": "default", "id": 1}];
         return (
             <View>
-                <View>
-                    <View style={{marginBottom: 2, paddingHorizontal: 15, flexDirection: 'row', flex: 1, height: 60, backgroundColor: 'white'}}>
-                        <View style={{flex: 3, justifyContent: 'space-around', paddingVertical: 10}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#4395BF'}}>
-                                July 30
-                            </Text>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 10, color: '#575757'}}>
-                                eggs, cereal, cheese, frozen veggies...
-                            </Text>
-                        </View>
-                        <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#79A977'}}>
-                                36,54 $
-                            </Text>
-                        </View>
-                    </View>
-                </View>
-                <View>
-                    <View style={{marginBottom: 2, paddingHorizontal: 15, flexDirection: 'row', flex: 1, height: 60, backgroundColor: 'white'}}>
-                        <View style={{flex: 3, justifyContent: 'space-around', paddingVertical: 10}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#4395BF'}}>
-                                July 22
-                            </Text>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 10, color: '#575757'}}>
-                                onions, bacon, bread
-                            </Text>
-                        </View>
-                        <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#79A977'}}>
-                                7,65 $
-                            </Text>
-                        </View>
-                    </View>
-                </View>
+                <FlatList
+                    onEndReachedThreshold={0.1}
+                    initialNumToRender={30}
+                    data={shoppingLists}
+                    keyExtractor = {(item) => item.id + ''}
+                    renderItem={({item}) =>
+                        <ShoppingListSummary
+                            key={item.id + ''}
+                            id={item.id}
+                            active={item.active}
+                            totalPrice={item.totalPrice}
+                            summary={item.summary}
+                            createdDate={item.createdDate}
+                            name={item.name}
+                        />
+                    }
+                />
             </View>
         );
     }
