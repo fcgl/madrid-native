@@ -22,18 +22,23 @@ export const fetchActiveShoppingListFailure = (errorMessage, shoppingListId) => 
     errorMessage: errorMessage
 });
 
-export const addToShoppingListRequest = () => ({
-    type: ADD_SHOPPING_PRODUCT_REQUEST
+export const addToShoppingListRequest = (shoppingListId) => ({
+    type: ADD_SHOPPING_PRODUCT_REQUEST,
+    id: shoppingListId
 });
 
-export const addToShoppingListSuccess = (json) => ({
+export const addToShoppingListSuccess = (json, shoppingListId) => ({
    type: ADD_SHOPPING_PRODUCT_SUCCESS,
-    json: json
+    json: json,
+    id: shoppingListId
+
 });
 
-export const addToShoppingListFailure = (errorMessage) => ({
+export const addToShoppingListFailure = (errorMessage, shoppingListId) => ({
     type: ADD_SHOPPING_PRODUCT_FAILURE,
-    errorMessage: errorMessage
+    errorMessage: errorMessage,
+    id: shoppingListId
+
 });
 
 const _toggleTodo = (id, shoppingListId) => ({
@@ -78,11 +83,13 @@ export const fetchActiveShoppingList = (shoppingListId) => {
     }
 };
 
-export const addToShoppingList = (shoppingListId, productName, isActive=false) => {
+export const addToShoppingList = (shoppingListId, productName) => {
     return async dispatch => {
-        dispatch(addToShoppingListRequest());
+        dispatch(addToShoppingListRequest(shoppingListId, productName));
         const token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNjU0NTgzMDcyLCJpYXQiOjE1NjgxODMwNzIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdfQ.Tly-cqQSVziwdLwEzg8Pswv6OVINahoS0d9yhQnC30DLWf7UZGzbgdm4naTYgNkNNBgY00Dx2jkh-r4eYDtyIg'
         const userId = 1;
+        const isActive = shoppingListId === 'active';
+        const shoppingListId2 = isActive ? -1 : shoppingListId;
         let url = 'http://localhost:8086/shopping/product/v1/new';
         try {
             const response = await fetch(url, {
@@ -95,19 +102,20 @@ export const addToShoppingList = (shoppingListId, productName, isActive=false) =
 
                 body: JSON.stringify({
                     userId: userId,
-                    shoppingListId: shoppingListId,
-                    productName: productName
+                    shoppingListId: shoppingListId2,
+                    productName: productName,
+                    isActive: isActive
                 }),
             });
             if (response.ok) {
                 const jsonResponse = await response.json();
-                dispatch(addToShoppingListSuccess(jsonResponse))
+                dispatch(addToShoppingListSuccess(jsonResponse, shoppingListId))
             } else {
                 const errorResponse = await response.json();
-                dispatch(addToShoppingListFailure(errorResponse.status.messages[0]))
+                dispatch(addToShoppingListFailure(errorResponse.status.messages[0], shoppingListId))
             }
         } catch (e) {
-            dispatch(addToShoppingListFailure(e.message))
+            dispatch(addToShoppingListFailure(e.message, shoppingListId))
         }
     }
 };

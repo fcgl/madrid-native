@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {connect} from 'react-redux'
 import {addTodo} from '../../../redux/actions'
+import {addToShoppingList} from "../../../redux/actions/shoppingListActions";
 
 class AddItem extends Component {
 
@@ -19,7 +20,7 @@ class AddItem extends Component {
     render() {
         return (
             <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity onPress={()=>this.addTodo(this.state.text)}>
+                <TouchableOpacity onPress={()=>this.props.addToShoppingList(this.props.shoppingListId, this.state.text)}>
                     <View style={{height: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
                         <Ionicons name={'md-add'} size={30} style={{color: 'grey', padding: 10}}/>
 
@@ -42,7 +43,14 @@ class AddItem extends Component {
     }
 }
 
-export default connect()(AddItem);
+const mapStateToProps = state => {
+    return {
+        reduxState: state.activeShoppingList
+    }
+};
+
+//Connects the props to the TodoList
+export default connect(mapStateToProps, {addToShoppingList})(AddItem);
 
 const styles = StyleSheet.create({
     container: {
@@ -51,4 +59,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
+
+
 

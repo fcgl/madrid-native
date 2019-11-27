@@ -48,8 +48,16 @@ const activeShoppingListReducer = (state=initialState, action) => {
             let shoppingListState4 = {...state[action.id], shoppingProducts: newShoppingProducts};
             return {...state, [action.id]: shoppingListState4};
         case ADD_SHOPPING_PRODUCT_REQUEST:
-            console.log("IT GETS TO ACTIVE SHOPPING LIST REDUCER");
-            return state;
+            let shoppingListState5 = {...state[action.id], isLoading: true};
+            return {...state, [action.id]: shoppingListState5};
+        case ADD_SHOPPING_PRODUCT_FAILURE:
+            let shoppingListState6 = {...state[action.id], isLoading: false, errorMessage: action.errorMessage};
+            return {...state, [action.id]: shoppingListState6};
+        case ADD_SHOPPING_PRODUCT_SUCCESS:
+            let shoppingProducts4 = {...state[action.id], isLoading: false, requestTimestamp: action.json.timestamp,
+                status: action.json.status,
+                shoppingProducts: state[action.id].shoppingProducts.concat([action.json.response])};
+            return {...state, [action.id]: shoppingProducts4};
         default:
             return state
     }
