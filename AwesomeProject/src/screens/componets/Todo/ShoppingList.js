@@ -16,9 +16,9 @@ const getCheckedOffCount = (todoList) => {
     return completed;
 };
 
-const listHeader = (checkedOffCount = 0, todoCount = 0) => {
+const listHeader = (checkedOffCount = 0, todoCount = 0, paddingBottom, paddingTop) => {
     return (
-        <View style={{flexDirection: 'row', flex: 1}}>
+        <View style={{flexDirection: 'row', paddingBottom: paddingBottom, paddingTop: paddingTop}}>
             <View style={{flex: 4, paddingLeft: 10}}>
                 <Text style={{fontSize: 12, fontWeight: 'bold'}}>SHOPPING LIST</Text>
             </View>
@@ -32,10 +32,10 @@ const listHeader = (checkedOffCount = 0, todoCount = 0) => {
 
 };
 
-const emptyList = () => {
+const emptyList = (paddingBottom, paddingTop) => {
     return(
         <View>
-            {listHeader()}
+            {listHeader(0,0, paddingBottom, paddingTop)}
             <View style={{height: 235, alignItems: 'center', justifyContent: 'center', paddingBottom: 10}}>
                 <SimpleLineIcons name="basket" size={60}
                                  style={{color: 'grey', paddingBottom: 20, margin: 0}}/>
@@ -47,10 +47,10 @@ const emptyList = () => {
     )
 };
 
-const notEmptyList = (items, toggleTodo, shoppingListId) => {
+const notEmptyList = (items, toggleTodo, shoppingListId, paddingBottom, paddingTop) => {
     return (
         <View style={{flex: 1}}>
-            {listHeader(getCheckedOffCount(items), items.length)}
+            {listHeader(getCheckedOffCount(items), items.length, paddingBottom, paddingTop)}
             <View style={{flex: 10}}>
             <ScrollView style={{backgroundColor: 'white'}}>
                 {items.map(item=>
@@ -87,9 +87,10 @@ class ShoppingList extends Component {
 
     render() {
         if (this.props.reduxState2[this.props.shoppingListId].shoppingProducts.length === 0) {
-            return emptyList()
+            return emptyList(this.props.paddingBottom, this.props.paddingTop)
         } else {
-            return notEmptyList(this.props.reduxState2[this.props.shoppingListId].shoppingProducts, this.props.toggleTodo, this.props.shoppingListId)
+            return notEmptyList(this.props.reduxState2[this.props.shoppingListId].shoppingProducts, this.props.toggleTodo, this.props.shoppingListId,
+                this.props.paddingBottom, this.props.paddingTop)
         }
     }
 }

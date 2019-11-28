@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 class ShoppingListSummary extends Component {
     render() {
@@ -7,12 +7,21 @@ class ShoppingListSummary extends Component {
         const date = new Date(this.props.createdDate);
         const month = months[date.getMonth()];
         const day = date.getDate();
+        const name = this.props.name + " - " + month + " " + day;
+        const id = this.props.active ? "active": this.props.id;
         return (
-                <View key={this.props.id}>
+            <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('IndividualShoppingList', {
+                    id: id,
+                    name: name,
+                    totalPrice: this.props.totalPrice,
+                })}
+            >
+                <View key={id}>
                     <View style={{marginBottom: 2, paddingHorizontal: 15, flexDirection: 'row', flex: 1, height: 60, backgroundColor: 'white'}}>
                         <View style={{flex: 3, justifyContent: 'space-around', paddingVertical: 10}}>
                             <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#4395BF'}}>
-                                {this.props.name} - {month} {day}
+                                {name}
                             </Text>
                             <Text style={{fontFamily: 'Avenir', fontSize: 10, color: '#575757'}}>
                                 {this.props.summary}
@@ -25,6 +34,7 @@ class ShoppingListSummary extends Component {
                         </View>
                     </View>
                 </View>
+            </TouchableOpacity>
         );
     }
 }

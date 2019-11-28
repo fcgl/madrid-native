@@ -34,7 +34,7 @@ class ShoppingLists extends Component {
                                     SHOPPING LISTS
                                 </Text>
                             </View>
-                            <ShoppingListComponent/>
+                            <ShoppingListComponent navigation={this.props.navigation}/>
 
                         </View>
                     </ScrollView>

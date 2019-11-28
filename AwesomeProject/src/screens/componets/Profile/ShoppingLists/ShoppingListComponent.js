@@ -17,6 +17,7 @@ class ShoppingListComponent extends Component {
                     keyExtractor = {(item) => item.id + ''}
                     renderItem={({item}) =>
                         <ShoppingListSummary
+                            navigation={this.props.navigation}
                             key={item.id + ''}
                             id={item.id}
                             active={item.active}

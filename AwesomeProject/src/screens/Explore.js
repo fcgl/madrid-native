@@ -127,7 +127,7 @@ class Explore extends Component {
                                     </ImageBackground>
                             </View>
                         </View>
-                    <ShoppingListView shoppingListId={"active"}/>
+                    <ShoppingListView shoppingListId={"active"} paddingBottom={10}/>
 
                 </View>
             </SafeAreaView>
