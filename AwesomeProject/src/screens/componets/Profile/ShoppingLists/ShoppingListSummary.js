@@ -13,7 +13,7 @@ class ShoppingListSummary extends Component {
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('IndividualShoppingList', {
                     id: id,
-                    name: name,
+                    name: this.props.name,
                     totalPrice: this.props.totalPrice,
                 })}
             >

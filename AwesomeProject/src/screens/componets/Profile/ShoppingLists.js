@@ -15,6 +15,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import ProfileHeader from "./ProfileHeader";
 import AllPoints from "./RewardSummary/Points/AllPoints";
 import ShoppingListComponent from "./ShoppingLists/ShoppingListComponent";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 class ShoppingLists extends Component {
     render() {
@@ -38,6 +39,18 @@ class ShoppingLists extends Component {
 
                         </View>
                     </ScrollView>
+                    <View style={{shadowOpacity: 0.3,shadowColor: '#575757', margin: 20, bottom: 0,right: 0, position: 'absolute', justifyContent: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#4293BD', height: 42, width: 42, borderRadius: 42/2}}>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('IndividualShoppingList', {
+                                shoppingListId: null,
+                                name: null,
+                                totalPrice: null,
+                            })}
+                        >
+                            <AntDesign name={'plus'} style={{color: 'white', fontSize: 24, fontWeight: '900'}}/>
+                        </TouchableOpacity>
+
+                    </View>
                 </View>
             </SafeAreaView>
         );

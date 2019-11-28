@@ -10,13 +10,7 @@ class AddItem extends Component {
     state = {
         text: ''
     };
-
-    addTodo = (text) => {
-        //update store
-        this.props.dispatch(addTodo(text));
-        this.setState({text: ''})
-    };
-
+    
     render() {
         return (
             <View style={{flexDirection: 'row'}}>
