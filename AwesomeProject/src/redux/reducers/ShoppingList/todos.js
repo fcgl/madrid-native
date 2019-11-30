@@ -17,7 +17,7 @@ const todos = (state=[], action) =>{
                 }
             });
         case ADD_SHOPPING_PRODUCT_REQUEST:
-            console.log("IT GETS TO TODOS AS WELL!!!");
+            // console.log("IT GETS TO TODOS AS WELL!!!");
             return state;
         default:
             return state

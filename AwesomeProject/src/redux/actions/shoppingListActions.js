@@ -1,7 +1,13 @@
 import {
-    GET_ACTIVE_SHOPPING_LIST_SUCCESS,
+    ADD_SHOPPING_PRODUCT_FAILURE,
+    ADD_SHOPPING_PRODUCT_REQUEST,
+    ADD_SHOPPING_PRODUCT_SUCCESS,
+    GENERATE_RANDOM_SHOPPING_LIST_REQUEST,
+    GENERATE_RANDOM_SHOPPING_LIST_SUCCESS,
     GET_ACTIVE_SHOPPING_LIST_FAILURE,
-    GET_ACTIVE_SHOPPING_LIST_REQUEST, TOGGLE_TODO, TOGGLE_ITEM_REQUEST,ADD_SHOPPING_PRODUCT_REQUEST, ADD_SHOPPING_PRODUCT_FAILURE, ADD_SHOPPING_PRODUCT_SUCCESS
+    GET_ACTIVE_SHOPPING_LIST_REQUEST,
+    GET_ACTIVE_SHOPPING_LIST_SUCCESS, RESET_RANDOM_SHOPPING_LIST,
+    TOGGLE_ITEM_REQUEST
 } from "./Types/actionTypes";
 
 export const fetchActiveShoppingListRequest = (shoppingListId) => ({
@@ -47,6 +53,25 @@ const _toggleTodo = (id, shoppingListId) => ({
    id: shoppingListId
 });
 
+const generateRandomShoppingListRequest = () => ({
+    type: GENERATE_RANDOM_SHOPPING_LIST_REQUEST
+});
+
+const generateRandomShoppingListSuccess = (randomKey) => ({
+    type: GENERATE_RANDOM_SHOPPING_LIST_SUCCESS,
+    randomKey: randomKey
+});
+
+
+const generateRamdomKey = () => {
+    let randomNumber = Math.floor((Math.random() * 1000));
+    return "placeholder-" + randomNumber;
+};
+
+const resetRandomKey = () => ({
+    type: RESET_RANDOM_SHOPPING_LIST
+});
+
 const genereateFetchShoppingListUrl = (shoppingListId) => {
     let isActive = shoppingListId === 'active';
     const userId = 1;
@@ -62,6 +87,15 @@ const genereateFetchShoppingListUrl = (shoppingListId) => {
 
 export const fetchActiveShoppingList = (shoppingListId) => {
     return async dispatch => {
+
+        if ((shoppingListId+"").includes('placeholder')) {
+            //if a placeholder is passed in, it means that the shoppingList data has not yet been backed up in the server... can't do an API request
+            // console.log(shoppingListId);
+            // console.log("does it get here???");
+            //TODO: This could be a good time to make the API request though...
+            return;
+        }
+
         dispatch(fetchActiveShoppingListRequest(shoppingListId));
         const token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNjU0NTgzMDcyLCJpYXQiOjE1NjgxODMwNzIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdfQ.Tly-cqQSVziwdLwEzg8Pswv6OVINahoS0d9yhQnC30DLWf7UZGzbgdm4naTYgNkNNBgY00Dx2jkh-r4eYDtyIg'
         let url = genereateFetchShoppingListUrl(shoppingListId);
@@ -85,8 +119,17 @@ export const fetchActiveShoppingList = (shoppingListId) => {
 
 export const addToShoppingList = (shoppingListId, productName) => {
     return async dispatch => {
+        if ((shoppingListId+"").includes('placeholder')) {
+            //if a placeholder is passed in, it means that the shoppingList data has not yet been backed up in the server... can't do an API request
+            // console.log(shoppingListId);
+            // console.log("does it get here addToShoppingList???");
+            let jsonResponse = _addToShoppingListApiMock(productName, shoppingListId);
+            dispatch(addToShoppingListSuccess(jsonResponse, shoppingListId));
+            //TODO: This could be a good time to make the API request though...
+            return;
+        }
         dispatch(addToShoppingListRequest(shoppingListId, productName));
-        const token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNjU0NTgzMDcyLCJpYXQiOjE1NjgxODMwNzIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdfQ.Tly-cqQSVziwdLwEzg8Pswv6OVINahoS0d9yhQnC30DLWf7UZGzbgdm4naTYgNkNNBgY00Dx2jkh-r4eYDtyIg'
+        const token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNjU0NTgzMDcyLCJpYXQiOjE1NjgxODMwNzIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdfQ.Tly-cqQSVziwdLwEzg8Pswv6OVINahoS0d9yhQnC30DLWf7UZGzbgdm4naTYgNkNNBgY00Dx2jkh-r4eYDtyIg';
         const userId = 1;
         const isActive = shoppingListId === 'active';
         const shoppingListId2 = isActive ? -1 : shoppingListId;
@@ -120,7 +163,50 @@ export const addToShoppingList = (shoppingListId, productName) => {
     }
 };
 
+export const addToShoppingListQueue = (shoppingListId, productName) => {
+    let jsonResponse = _addToShoppingListApiMock(productName, shoppingListId);
+    dispatch(addToShoppingListSuccess(jsonResponse, shoppingListId));
+};
+
+const _addToShoppingListApiMock = (name, id) => {
+    let apiResponse = {
+        response: {
+            id: generateRamdomKey(),
+            userId: 1,
+            productName: name,
+            recommendedPrice: null,
+            recommendedStoreId: null,
+            recommendedProductId: null,
+            completed: false,
+            recommendationComplete: false
+        }, status: {
+            code: 1,
+            httpcode: "OK",
+            message: [
+                "ok"
+            ]
+        },
+        timestamp: Math.floor(new Date().getTime()/1000)
+    };
+    return apiResponse
+};
+
 export const toggleTodo = (id, shoppingListId) => {
     return async dispatch => {
         dispatch(_toggleTodo(id, shoppingListId));
 }};
+
+export const generateRandomShoppingList = () => {
+    return async dispatch => {
+        dispatch(generateRandomShoppingListRequest());
+        let key = generateRamdomKey();
+        dispatch(generateRandomShoppingListSuccess(key));
+
+    }
+};
+
+export const resetRandomShoppingListKey = () => {
+    return async dispatch => {
+        dispatch(resetRandomKey());
+    }
+};

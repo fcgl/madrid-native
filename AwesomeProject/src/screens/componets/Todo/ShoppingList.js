@@ -87,7 +87,9 @@ class ShoppingList extends Component {
 
     render() {
         let shoppingListId = this.props.shoppingListId;
-        if (this.props.reduxState2[shoppingListId] === null || shoppingListId === -1 || this.props.reduxState2[shoppingListId].shoppingProducts.length === 0) {
+        // console.log("WHATS GOOD WITH THESE LOGS!!!!");
+        // console.log(this.props.reduxState2);
+        if (this.props.reduxState2[shoppingListId] === null || this.props.reduxState2[shoppingListId] === undefined || this.props.reduxState2[shoppingListId].shoppingProducts.length === 0) {
             return emptyList(this.props.paddingBottom, this.props.paddingTop)
         } else {
             return notEmptyList(this.props.reduxState2[this.props.shoppingListId].shoppingProducts, this.props.toggleTodo, this.props.shoppingListId,

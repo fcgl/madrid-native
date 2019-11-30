@@ -85,7 +85,7 @@ export const fetchUserPointHistory = () => {
             });
             if (response.ok) {
                 const jsonResponse = await response.json();
-                console.log(jsonResponse);
+                // console.log(jsonResponse);
                 dispatch(fetchingUserPointHistorySuccess(jsonResponse));
             } else {
                 const errorResponse = await response.text();

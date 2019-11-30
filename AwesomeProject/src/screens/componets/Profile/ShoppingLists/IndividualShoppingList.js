@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+    ActivityIndicator,
     Animated,
     Platform,
     SafeAreaView,
@@ -16,6 +17,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import PostSummary from "../../Forum/components/PostSummary";
 import CreateComment from "../../Forum/Post/CreateComment";
 import ShoppingListView from "../../Explore/ShoppingListView";
+import {connect} from "react-redux";
+import {fetchActiveShoppingList, generateRandomShoppingList, resetRandomShoppingListKey} from "../../../../redux/actions/shoppingListActions";
 
 class IndividualShoppingList extends Component {
     onChangeText = (key, value) => {
@@ -30,13 +33,40 @@ class IndividualShoppingList extends Component {
             shoppingListName: this.props.navigation.getParam('name', '')
         };
     }
+
+    componentDidMount() {
+        if (this.props.navigation.getParam('id', null) === null) {
+            // console.log("GENERATE A RANDOM SHOPPING LIST!!!");
+            this.props.generateRandomShoppingList()
+        }
+    }
+
     render() {
+
+        const shoppingListViewLoader = () => {
+            if (this.props.reduxState.generateLoading) {
+                return(<ActivityIndicator color={'white'}/>)
+            } else {
+                return(
+                    <View style={{flex: 20, backgroundColor: '#F9F9F9'}}>
+                        {/*<ShoppingListView shoppingListId={this.props.navigation.getParam('id', -1)} paddingTop={20} paddingBottom={10}/>*/}
+                        {/*{console.log("WHAT IS THE GENERATED KEY????????????")}*/}
+                        {/*{console.log(this.props.reduxState.generatedKey)}*/}
+                        <ShoppingListView shoppingListId={this.props.navigation.getParam('id', this.props.reduxState.generatedKey)} placeHolder={this.props.reduxState.generatedKey !== null} paddingTop={20} paddingBottom={10}/>
+                    </View>)
+            }
+        };
+
+        const goBack = () => {
+          this.props.resetRandomShoppingListKey();
+            this.props.navigation.goBack();
+        };
 
         return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#4395BF'}}>
                     <View style={{flex: 1, backgroundColor: '#4395BF', paddingBottom: 15, marginTop: Platform.OS === 'android' ? 30 : null}}>
                         <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center'}}>
-                            <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center'}} onPress={() => this.props.navigation.goBack()}>
+                            <TouchableOpacity style={{flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center'}} onPress={() => goBack()}>
                                 <Ionicons name={"ios-arrow-back"} style={{color: 'white', fontSize: 20}}/>
                             </TouchableOpacity>
                             <View style={{flex: 2, paddingLeft: 10, justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
@@ -55,15 +85,23 @@ class IndividualShoppingList extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{flex: 20, backgroundColor: '#F9F9F9'}}>
-                        <ShoppingListView shoppingListId={this.props.navigation.getParam('id', -1)} paddingTop={20} paddingBottom={10}/>
-                    </View>
+                    {shoppingListViewLoader()}
+                    {/*<View style={{flex: 20, backgroundColor: '#F9F9F9'}}>*/}
+                    {/*    <ShoppingListView shoppingListId={this.props.navigation.getParam('id', -1)} paddingTop={20} paddingBottom={10}/>*/}
+                    {/*</View>*/}
         </SafeAreaView>
         );
     }
 }
 
-export default IndividualShoppingList;
+const mapStateToProps = state => {
+    return {
+        reduxState: state.activeShoppingList
+    }
+};
+
+//Connects the props to the TodoList
+export default connect(mapStateToProps, {generateRandomShoppingList, resetRandomShoppingListKey})(IndividualShoppingList);
 
 const styles = StyleSheet.create({
     container: {
