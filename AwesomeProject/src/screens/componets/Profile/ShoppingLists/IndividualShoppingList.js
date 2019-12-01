@@ -48,7 +48,7 @@ class IndividualShoppingList extends Component {
             } else {
                 return(
                     <View style={{flex: 20, backgroundColor: '#F9F9F9'}}>
-                        <ShoppingListView shoppingListId={this.props.navigation.getParam('id', this.props.reduxState.generatedKey)} placeHolder={this.props.reduxState.generatedKey !== null} paddingTop={20} paddingBottom={10}/>
+                        <ShoppingListView navigation={this.props.navigation} shoppingListId={this.props.navigation.getParam('id', this.props.reduxState.generatedKey)} placeHolder={this.props.reduxState.generatedKey !== null} paddingTop={20} paddingBottom={10}/>
                     </View>)
             }
         };

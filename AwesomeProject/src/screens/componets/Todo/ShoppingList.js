@@ -16,7 +16,7 @@ const getCheckedOffCount = (todoList) => {
     return completed;
 };
 
-const listHeader = (checkedOffCount = 0, todoCount = 0, paddingBottom, paddingTop) => {
+const listHeader = (checkedOffCount = 0, todoCount = 0, paddingBottom, paddingTop, navigation) => {
     return (
         <View style={{flexDirection: 'row', paddingBottom: paddingBottom, paddingTop: paddingTop}}>
             <View style={{flex: 4, paddingLeft: 10}}>
@@ -26,16 +26,20 @@ const listHeader = (checkedOffCount = 0, todoCount = 0, paddingBottom, paddingTo
                 <Text style={{fontSize: 12}}>{checkedOffCount}/{todoCount}</Text>
             </View>
             <View style={{flex: 2, paddingRight: 5}}>
-                <Text style={{fontSize: 11, fontWeight: '800', color: '#4395BF'}}>VIEW ALL</Text>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('ShoppingLists')}
+                >
+                    <Text style={{fontSize: 11, fontWeight: '800', color: '#4395BF'}}>VIEW ALL</Text>
+                </TouchableOpacity>
             </View>
         </View>)
 
 };
 
-const emptyList = (paddingBottom, paddingTop) => {
+const emptyList = (paddingBottom, paddingTop, navigation) => {
     return(
         <View>
-            {listHeader(0,0, paddingBottom, paddingTop)}
+            {listHeader(0,0, paddingBottom, paddingTop, navigation)}
             <View style={{height: 235, alignItems: 'center', justifyContent: 'center', paddingBottom: 10}}>
                 <SimpleLineIcons name="basket" size={60}
                                  style={{color: 'grey', paddingBottom: 20, margin: 0}}/>
@@ -47,10 +51,10 @@ const emptyList = (paddingBottom, paddingTop) => {
     )
 };
 
-const notEmptyList = (items, toggleTodo, shoppingListId, paddingBottom, paddingTop) => {
+const notEmptyList = (items, toggleTodo, shoppingListId, paddingBottom, paddingTop, navigation) => {
     return (
         <View style={{flex: 1}}>
-            {listHeader(getCheckedOffCount(items), items.length, paddingBottom, paddingTop)}
+            {listHeader(getCheckedOffCount(items), items.length, paddingBottom, paddingTop, navigation)}
             <View style={{flex: 10}}>
             <ScrollView style={{backgroundColor: 'white'}}>
                 {items.map(item=>
@@ -86,14 +90,16 @@ class ShoppingList extends Component {
     }
 
     render() {
+        {console.log("INSIDE OF SHOPPING LIST!!")}
+        {console.log(this.props.navigation)}
         let shoppingListId = this.props.shoppingListId;
         // console.log("WHATS GOOD WITH THESE LOGS!!!!");
         // console.log(this.props.reduxState2);
         if (this.props.reduxState2[shoppingListId] === null || this.props.reduxState2[shoppingListId] === undefined || this.props.reduxState2[shoppingListId].shoppingProducts.length === 0) {
-            return emptyList(this.props.paddingBottom, this.props.paddingTop)
+            return emptyList(this.props.paddingBottom, this.props.paddingTop, this.props.navigation)
         } else {
             return notEmptyList(this.props.reduxState2[this.props.shoppingListId].shoppingProducts, this.props.toggleTodo, this.props.shoppingListId,
-                this.props.paddingBottom, this.props.paddingTop)
+                this.props.paddingBottom, this.props.paddingTop, this.props.navigation)
         }
     }
 }

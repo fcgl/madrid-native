@@ -17,7 +17,7 @@ import ShoppingListView from "./componets/Explore/ShoppingListView";
 const {height, width} = Dimensions.get('window');
 class Explore extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.startHeaderHeight = 80;
         this.endHeaderHeight = 50;
         this.scrollY = new Animated.Value(0);
@@ -127,7 +127,7 @@ class Explore extends Component {
                                     </ImageBackground>
                             </View>
                         </View>
-                    <ShoppingListView shoppingListId={"active"} paddingBottom={10} placeHolder={null}/>
+                    <ShoppingListView navigation={this.props.navigation} shoppingListId={"active"} paddingBottom={10} placeHolder={null}/>
 
                 </View>
             </SafeAreaView>

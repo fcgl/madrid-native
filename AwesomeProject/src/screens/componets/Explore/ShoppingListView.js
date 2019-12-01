@@ -10,7 +10,7 @@ class ShoppingListView extends Component {
         return (
             <View style={{flex: 1, backgroundColor: '#F9F9F9'}}>
                 <View style={{flex: 1}}>
-                    <ShoppingList shoppingListId={this.props.shoppingListId} placeHolder={this.props.placeHolder} paddingTop={paddingTop} paddingBottom={paddingBottom}/>
+                    <ShoppingList navigation={this.props.navigation} shoppingListId={this.props.shoppingListId} placeHolder={this.props.placeHolder} paddingTop={paddingTop} paddingBottom={paddingBottom}/>
                 </View>
                 <AddItem shoppingListId={this.props.shoppingListId} placeHolder={this.props.placeHolder}/>
             </View>
