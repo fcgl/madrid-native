@@ -7,20 +7,17 @@ import {
     View,
     SafeAreaView, TextInput, Platform, StatusBar, Image, Dimensions, Animated, TouchableOpacity
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Category from './componets/Explore/Category'
-import Home from './componets/Explore/Home'
-import Todo from './componets/Explore/Todo'
-import Tag from './componets/Explore/Tag'
-import {colors} from "../theme";
-import AddTodo from './componets/Todo/AddTodo';
+import AddItem from './componets/Todo/AddItem';
+import ShoppingList from "./componets/Todo/ShoppingList";
+import ShoppingListView from "./componets/Explore/ShoppingListView";
 
 
 const {height, width} = Dimensions.get('window');
 class Explore extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.startHeaderHeight = 80;
         this.endHeaderHeight = 50;
         this.scrollY = new Animated.Value(0);
@@ -52,10 +49,10 @@ class Explore extends Component {
         return (
             <SafeAreaView style={{flex: 1, backgroundColor: '#4395BF'}}>
                 <View style={{flex: 1}}>
-                    <ScrollView
-                        scrollEventThrottle={16}
-                        onScroll={Animated.event([{nativeEvent: {contentOffset: {y:this.scrollY}}}])}
-                    >
+                    {/*<View*/}
+                    {/*    // scrollEventThrottle={16}*/}
+                    {/*    // onScroll={Animated.event([{nativeEvent: {contentOffset: {y:this.scrollY}}}])}*/}
+                    {/*>*/}
                         <View style={{flexDirection: 'row', paddingBottom: 10,
                             backgroundColor: '#4395BF',
                             marginTop: Platform.OS === 'android' ? 30 : null
@@ -129,13 +126,9 @@ class Explore extends Component {
                                     </View>
                                     </ImageBackground>
                             </View>
-                            <Todo/>
-
                         </View>
+                    <ShoppingListView navigation={this.props.navigation} shoppingListId={"active"} paddingBottom={10} placeHolder={null}/>
 
-
-                    </ScrollView>
-                    <AddTodo/>
                 </View>
             </SafeAreaView>
         );

@@ -32,9 +32,9 @@ class AllPosts extends Component {
     render(){
 
         const getTimeSinceCreated = (created, now) => {
-            console.log("_________TIME SINCE CREATED_______");
+            // console.log("_________TIME SINCE CREATED_______");
             let delta = now - created;
-            console.log(delta);
+            // console.log(delta);
             let seconds = Math.floor(delta / 1000);
             let minutes = Math.floor(seconds / 60);
             let hours = Math.floor(minutes / 60);
@@ -83,7 +83,7 @@ class AllPosts extends Component {
                             {this.props.reduxState[this.props.postType].errorMessage[0]}
                         </Text>
                         <View style={{alignItems: 'center'}}>
-                            {console.log(this.props.reduxState)}
+                            {/*{console.log(this.props.reduxState)}*/}
 
                             {
                                 this.props.reduxState[this.props.postType].posts.map((post) => (

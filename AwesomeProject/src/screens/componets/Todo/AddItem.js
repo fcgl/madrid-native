@@ -3,23 +3,27 @@ import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {connect} from 'react-redux'
 import {addTodo} from '../../../redux/actions'
+import {addToShoppingList, addToShoppingListQueue} from "../../../redux/actions/shoppingListActions";
 
-class AddTodo extends Component {
+class AddItem extends Component {
 
     state = {
         text: ''
     };
 
-    addTodo = (text) => {
-        //update store
-        this.props.dispatch(addTodo(text));
-        this.setState({text: ''})
-    };
-
     render() {
+
+        const addToShoppingList = () => {
+            // if (this.props.placeholder!== null || this.props.placeholder!==undefined) {
+            //     this.props.addToShoppingListQueue(this.props.shoppingListId, this.state.text)
+            // } else {
+                this.props.addToShoppingList(this.props.shoppingListId, this.state.text)
+            // }
+        };
+
         return (
             <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity onPress={()=>this.addTodo(this.state.text)}>
+                <TouchableOpacity onPress={()=>addToShoppingList()}>
                     <View style={{height: 50, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
                         <Ionicons name={'md-add'} size={30} style={{color: 'grey', padding: 10}}/>
 
@@ -42,7 +46,14 @@ class AddTodo extends Component {
     }
 }
 
-export default connect()(AddTodo);
+const mapStateToProps = state => {
+    return {
+        reduxState: state.activeShoppingList
+    }
+};
+
+//Connects the props to the TodoList
+export default connect(mapStateToProps, {addToShoppingList, addToShoppingListQueue})(AddItem);
 
 const styles = StyleSheet.create({
     container: {
@@ -51,4 +62,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
+
+
 

@@ -1,51 +1,49 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import AllPoints from "../RewardSummary/Points/AllPoints";
+import ShoppingListSummary from "./ShoppingListSummary";
+import {connect} from "react-redux";
+import {generateRandomShoppingList, resetRandomShoppingListKey} from "../../../../redux/actions/shoppingListActions";
 
 class ShoppingListComponent extends Component {
     render() {
+        const shoppingLists = [{"active": true, "totalPrice": 0.0, "summary": "Coca cola, Banana",
+            "userId": 1, "updatedDate": 1574872900515, "createdDate": 1574872415372,
+            "name": "default", "id": 1}];
         return (
             <View>
-                <View>
-                    <View style={{marginBottom: 2, paddingHorizontal: 15, flexDirection: 'row', flex: 1, height: 60, backgroundColor: 'white'}}>
-                        <View style={{flex: 3, justifyContent: 'space-around', paddingVertical: 10}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#4395BF'}}>
-                                July 30
-                            </Text>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 10, color: '#575757'}}>
-                                eggs, cereal, cheese, frozen veggies...
-                            </Text>
-                        </View>
-                        <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#79A977'}}>
-                                36,54 $
-                            </Text>
-                        </View>
-                    </View>
-                </View>
-                <View>
-                    <View style={{marginBottom: 2, paddingHorizontal: 15, flexDirection: 'row', flex: 1, height: 60, backgroundColor: 'white'}}>
-                        <View style={{flex: 3, justifyContent: 'space-around', paddingVertical: 10}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#4395BF'}}>
-                                July 22
-                            </Text>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 10, color: '#575757'}}>
-                                onions, bacon, bread
-                            </Text>
-                        </View>
-                        <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Avenir', fontSize: 12, color: '#79A977'}}>
-                                7,65 $
-                            </Text>
-                        </View>
-                    </View>
-                </View>
+                <FlatList
+                    onEndReachedThreshold={0.1}
+                    initialNumToRender={30}
+                    data={this.props.reduxState.queue}
+                    keyExtractor = {(item) => item + ''}
+                    extraData={this.props}
+                    renderItem={({item}) =>
+                        <ShoppingListSummary
+                            navigation={this.props.navigation}
+                            key={item + ''}
+                            id={item}
+                            active={item === 'active'}
+                            totalPrice={this.props.reduxState[item].totalPrice}
+                            summary={this.props.reduxState[item].summary}
+                            createdDate={this.props.reduxState[item].createdDate}
+                            name={this.props.reduxState[item].name}
+                        />
+                    }
+                />
             </View>
         );
     }
 }
 
-export default ShoppingListComponent;
+const mapStateToProps = state => {
+    return {
+        reduxState: state.activeShoppingList
+    }
+};
 
+//Connects the props to the TodoList
+export default connect(mapStateToProps)(ShoppingListComponent);
 const styles = StyleSheet.create({
     container: {
         flex: 1,

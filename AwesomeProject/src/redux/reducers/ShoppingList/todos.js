@@ -1,3 +1,5 @@
+import {ADD_SHOPPING_PRODUCT_REQUEST} from "../../actions/Types/actionTypes";
+
 const todos = (state=[], action) =>{
     switch(action.type) {
         case 'ADD_TODO':
@@ -14,6 +16,9 @@ const todos = (state=[], action) =>{
                     return todo;
                 }
             });
+        case ADD_SHOPPING_PRODUCT_REQUEST:
+            // console.log("IT GETS TO TODOS AS WELL!!!");
+            return state;
         default:
             return state
     }

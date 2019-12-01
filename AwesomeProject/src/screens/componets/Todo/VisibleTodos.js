@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import TodoList from './TodoList'
+import ShoppingList from './ShoppingList'
 import {toggleTodo} from "../../../redux/actions";
 
 const mapStateToProps = state => ({
@@ -13,5 +13,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 //Connects the props to the TodoList
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingList)
 

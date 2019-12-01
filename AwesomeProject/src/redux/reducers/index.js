@@ -10,9 +10,10 @@ import userTrophies from "./Profile/UserTrophy/UserTrophyReducer";
 import productsReducer from "./Discovery/productReducer";
 import searchProduct from "./Discovery/searchReducer";
 import searchHistory from "./Discovery/recentSearchReducer";
+import activeShoppingList from "./Home/activeShoppingListReducer"
 
 export default combineReducers({
-    todos,
+    todos: todos,
     forum: forumReducer,
     addPost: addPost,
     addComment: addComment,
@@ -22,5 +23,6 @@ export default combineReducers({
     userTrophies: userTrophies,
     productsReducer: productsReducer,
     searchProduct: searchProduct,
-    searchHistory: searchHistory
+    searchHistory: searchHistory,
+    activeShoppingList: activeShoppingList
 })

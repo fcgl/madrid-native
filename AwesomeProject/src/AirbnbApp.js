@@ -28,6 +28,7 @@ import New from "./screens/componets/Forum/New";
 import Post from "./screens/componets/Forum/Post/Post";
 import CreatePost from "./screens/componets/Forum/Post/CreatePost";
 import Search from "./screens/componets/Discovery/Search/Search";
+import IndividualShoppingList from "./screens/componets/Profile/ShoppingLists/IndividualShoppingList";
 
 
 const ProfileStack = createStackNavigator({
@@ -35,7 +36,8 @@ const ProfileStack = createStackNavigator({
     SavedItems: { screen: SavedItems },
     ShoppingLists: {screen: ShoppingLists},
     ProfileTrophies: {screen: ProfileTrophies},
-    ProfileSaved: {screen: ProfileSaved}
+    ProfileSaved: {screen: ProfileSaved},
+    IndividualShoppingList: {screen: IndividualShoppingList}
     },     {
     headerMode: 'none',
     navigationOptions: {
