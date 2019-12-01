@@ -7,7 +7,7 @@ import {
     GET_ACTIVE_SHOPPING_LIST_FAILURE,
     GET_ACTIVE_SHOPPING_LIST_REQUEST,
     GET_ACTIVE_SHOPPING_LIST_SUCCESS, RESET_RANDOM_SHOPPING_LIST,
-    TOGGLE_ITEM_REQUEST
+    TOGGLE_ITEM_REQUEST, UPDATE_SHOPPING_LIST_NAME
 } from "./Types/actionTypes";
 
 export const fetchActiveShoppingListRequest = (shoppingListId) => ({
@@ -70,6 +70,12 @@ const generateRamdomKey = () => {
 
 const resetRandomKey = () => ({
     type: RESET_RANDOM_SHOPPING_LIST
+});
+
+const _updateShoppingListNameLocally = (shoppingListId, name) => ({
+    type: UPDATE_SHOPPING_LIST_NAME,
+    name: name,
+    shoppingListId: shoppingListId
 });
 
 const genereateFetchShoppingListUrl = (shoppingListId) => {
@@ -186,7 +192,7 @@ const _addToShoppingListApiMock = (name, id) => {
                 "ok"
             ]
         },
-        timestamp: Math.floor(new Date().getTime()/1000)
+        timestamp: Math.floor(new Date().getTime())
     };
     return apiResponse
 };
@@ -208,5 +214,11 @@ export const generateRandomShoppingList = () => {
 export const resetRandomShoppingListKey = () => {
     return async dispatch => {
         dispatch(resetRandomKey());
+    }
+};
+
+export const updateShoppingListNameLocally = (shoppingListId, name) => {
+    return async dispatch => {
+        dispatch(_updateShoppingListNameLocally(shoppingListId, name));
     }
 };

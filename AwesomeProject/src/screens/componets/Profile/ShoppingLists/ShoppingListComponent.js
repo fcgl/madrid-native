@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import AllPoints from "../RewardSummary/Points/AllPoints";
 import ShoppingListSummary from "./ShoppingListSummary";
+import {connect} from "react-redux";
+import {generateRandomShoppingList, resetRandomShoppingListKey} from "../../../../redux/actions/shoppingListActions";
 
 class ShoppingListComponent extends Component {
     render() {
@@ -13,18 +15,19 @@ class ShoppingListComponent extends Component {
                 <FlatList
                     onEndReachedThreshold={0.1}
                     initialNumToRender={30}
-                    data={shoppingLists}
-                    keyExtractor = {(item) => item.id + ''}
+                    data={this.props.reduxState.queue}
+                    keyExtractor = {(item) => item + ''}
+                    extraData={this.props}
                     renderItem={({item}) =>
                         <ShoppingListSummary
                             navigation={this.props.navigation}
-                            key={item.id + ''}
-                            id={item.id}
-                            active={item.active}
-                            totalPrice={item.totalPrice}
-                            summary={item.summary}
-                            createdDate={item.createdDate}
-                            name={item.name}
+                            key={item + ''}
+                            id={item}
+                            active={item === 'active'}
+                            totalPrice={this.props.reduxState[item].totalPrice}
+                            summary={this.props.reduxState[item].summary}
+                            createdDate={this.props.reduxState[item].createdDate}
+                            name={this.props.reduxState[item].name}
                         />
                     }
                 />
@@ -33,8 +36,14 @@ class ShoppingListComponent extends Component {
     }
 }
 
-export default ShoppingListComponent;
+const mapStateToProps = state => {
+    return {
+        reduxState: state.activeShoppingList
+    }
+};
 
+//Connects the props to the TodoList
+export default connect(mapStateToProps)(ShoppingListComponent);
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -10,7 +10,10 @@ import {
     GENERATE_RANDOM_SHOPPING_LIST,
     GENERATE_RANDOM_SHOPPING_LIST_REQUEST,
     GENERATE_RANDOM_SHOPPING_LIST_SUCCESS,
-    RESET_RANDOM_SHOPPING_LIST
+    RESET_RANDOM_SHOPPING_LIST,
+    ADD_SHOPPING_LIST_AND_PRODUCTS_REQUEST,
+    ADD_SHOPPING_LIST_AND_PRODUCTS_FAILURE,
+    ADD_SHOPPING_LIST_AND_PRODUCTS_SUCCESS, UPDATE_SHOPPING_LIST_NAME
 } from "../../actions/Types/actionTypes";
 
 const defaultState = {
@@ -19,7 +22,14 @@ const defaultState = {
     errorMessage: '',
     shoppingProducts: [],
     requestTimestamp: 0,
-    serverLoaded: true
+    serverLoaded: true,
+    summary: '',
+    active: false,
+    userId: 1,
+    id: null,
+    totalPrice: '0.0',
+    name: 'default',
+    createdDate: Math.floor(new Date().getTime())
 };
 
 const defaultState2 = {
@@ -28,7 +38,14 @@ const defaultState2 = {
     errorMessage: '',
     shoppingProducts: [],
     requestTimestamp: 0,
-    serverLoaded: false
+    serverLoaded: false,
+    summary: '',
+    active: false,
+    userId: 1,
+    id: null,
+    totalPrice: '0.0',
+    name: 'default',
+    createdDate: Math.floor(new Date().getTime())
 };
 
 /**
@@ -41,15 +58,12 @@ const initialState = {
     generateLoading: false,
     generatedKey: null,
     active: defaultState,
-    queue: []
+    placeHolderQueue: [],
+    queue: ['active'],
+    updateStateCount: 0
 };
 
 const activeShoppingListReducer = (state=initialState, action) => {
-    // console.log("currentState: ");
-    // console.log(state);
-    // console.log("action:");
-    // console.log(action);
-    // console.log("------");
     if (action.id === null && action.id !== undefined) {
         return state;
     }
@@ -93,13 +107,20 @@ const activeShoppingListReducer = (state=initialState, action) => {
         case GENERATE_RANDOM_SHOPPING_LIST_REQUEST:
             return {...state, generateLoading: true};
         case GENERATE_RANDOM_SHOPPING_LIST_SUCCESS:
+            let newPlaceHolderQueue = state.placeHolderQueue.concat([action.randomKey]);
             let newQueue = state.queue.concat([action.randomKey]);
-            // console.log('THIS IS WHAT THE NEW STATE FROM GENERATE RANDOM SHOPPING LIST SUCCESS ');
-            // console.log({...state, [action.randomKey]: defaultState2, generateLoading: false, generatedKey: action.randomKey, queue: newQueue});
-            return {...state, [action.randomKey]: defaultState2, generateLoading: false, generatedKey: action.randomKey, queue: newQueue};
-            // return {...state, generatedKey: action.randomKey,generateLoading: false};
+            let startState = {...defaultState, createdDate: Math.floor(new Date().getTime())};
+            return {...state, [action.randomKey]: startState, generateLoading: false, generatedKey: action.randomKey, placeHolderQueue: newPlaceHolderQueue, queue: newQueue, id: action.randomKey};
         case RESET_RANDOM_SHOPPING_LIST:
             return {...state, generatedKey: null, generateLoading: false};
+        case ADD_SHOPPING_LIST_AND_PRODUCTS_FAILURE:
+            return state;
+        case ADD_SHOPPING_LIST_AND_PRODUCTS_SUCCESS:
+            return state;
+        case UPDATE_SHOPPING_LIST_NAME:
+            let shoppingListState7 = {...state[action.shoppingListId],  name: action.name};
+            let newPlaceHolderQueue2 = state.placeHolderQueue.includes(action.shoppingListId) ? state.placeHolderQueue : state.placeHolderQueue.concat(action.shoppingListId);
+            return {...state, [action.shoppingListId]: shoppingListState7, placeHolderQueue: newPlaceHolderQueue2, updateStateCount: state.updateStateCount + 1} ;
         default:
             return state
     }

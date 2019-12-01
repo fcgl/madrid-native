@@ -18,13 +18,12 @@ import PostSummary from "../../Forum/components/PostSummary";
 import CreateComment from "../../Forum/Post/CreateComment";
 import ShoppingListView from "../../Explore/ShoppingListView";
 import {connect} from "react-redux";
-import {fetchActiveShoppingList, generateRandomShoppingList, resetRandomShoppingListKey} from "../../../../redux/actions/shoppingListActions";
+import {fetchActiveShoppingList, generateRandomShoppingList, resetRandomShoppingListKey, updateShoppingListNameLocally} from "../../../../redux/actions/shoppingListActions";
 
 class IndividualShoppingList extends Component {
     onChangeText = (key, value) => {
-        this.setState({
-            [key]: value
-        })
+        let id = this.props.navigation.getParam('id', this.props.reduxState.generatedKey);
+        this.props.updateShoppingListNameLocally(id, value);
     };
 
     constructor(props){
@@ -49,9 +48,6 @@ class IndividualShoppingList extends Component {
             } else {
                 return(
                     <View style={{flex: 20, backgroundColor: '#F9F9F9'}}>
-                        {/*<ShoppingListView shoppingListId={this.props.navigation.getParam('id', -1)} paddingTop={20} paddingBottom={10}/>*/}
-                        {/*{console.log("WHAT IS THE GENERATED KEY????????????")}*/}
-                        {/*{console.log(this.props.reduxState.generatedKey)}*/}
                         <ShoppingListView shoppingListId={this.props.navigation.getParam('id', this.props.reduxState.generatedKey)} placeHolder={this.props.reduxState.generatedKey !== null} paddingTop={20} paddingBottom={10}/>
                     </View>)
             }
@@ -73,7 +69,7 @@ class IndividualShoppingList extends Component {
                                 <TextInput
                                     placeholder={'title'}
                                     placeholderTextColor={'#e6e6e6'}
-                                    value={this.state.shoppingListName}
+                                    value={this.props.reduxState[this.props.navigation.getParam('id', this.props.reduxState.generatedKey)] === undefined ? '' : this.props.reduxState[this.props.navigation.getParam('id', this.props.reduxState.generatedKey)].name}
                                     onChangeText={val => this.onChangeText('shoppingListName', val)}
                                     style={{paddingHorizontal: 10, fontFamily: 'Avenir', fontWeight: '600', fontSize: 20, color: 'white'}}
                                     autoCapitalize="none"
@@ -86,9 +82,6 @@ class IndividualShoppingList extends Component {
                         </View>
                     </View>
                     {shoppingListViewLoader()}
-                    {/*<View style={{flex: 20, backgroundColor: '#F9F9F9'}}>*/}
-                    {/*    <ShoppingListView shoppingListId={this.props.navigation.getParam('id', -1)} paddingTop={20} paddingBottom={10}/>*/}
-                    {/*</View>*/}
         </SafeAreaView>
         );
     }
@@ -101,7 +94,7 @@ const mapStateToProps = state => {
 };
 
 //Connects the props to the TodoList
-export default connect(mapStateToProps, {generateRandomShoppingList, resetRandomShoppingListKey})(IndividualShoppingList);
+export default connect(mapStateToProps, {generateRandomShoppingList, resetRandomShoppingListKey, updateShoppingListNameLocally})(IndividualShoppingList);
 
 const styles = StyleSheet.create({
     container: {
