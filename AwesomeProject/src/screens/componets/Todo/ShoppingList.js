@@ -90,8 +90,8 @@ class ShoppingList extends Component {
     }
 
     render() {
-        {console.log("INSIDE OF SHOPPING LIST!!")}
-        {console.log(this.props.navigation)}
+        // {console.log("INSIDE OF SHOPPING LIST!!")}
+        // {console.log(this.props.navigation)}
         let shoppingListId = this.props.shoppingListId;
         // console.log("WHATS GOOD WITH THESE LOGS!!!!");
         // console.log(this.props.reduxState2);

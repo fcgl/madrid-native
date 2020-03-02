@@ -29,6 +29,7 @@ import Post from "./screens/componets/Forum/Post/Post";
 import CreatePost from "./screens/componets/Forum/Post/CreatePost";
 import Search from "./screens/componets/Discovery/Search/Search";
 import IndividualShoppingList from "./screens/componets/Profile/ShoppingLists/IndividualShoppingList";
+import SignUp from "./SignUp";
 
 
 const ProfileStack = createStackNavigator({
@@ -49,6 +50,10 @@ const ProfileStack = createStackNavigator({
             duration: 0,
         },
     }),
+});
+
+const AuthStack = createStackNavigator({
+  'SignUp': SignUp
 });
 
 const DiscoveryStack = createStackNavigator({
@@ -155,8 +160,9 @@ const AirbnbTabs = createBottomTabNavigator({
 
 const Test = createAppContainer(createSwitchNavigator ( {
         App: AirbnbTabs,
+        Auth: AuthStack
     }, {
-        initialRouteName: 'App',
+        initialRouteName: 'Auth',
     }
 
 ));
